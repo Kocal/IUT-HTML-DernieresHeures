@@ -38,15 +38,28 @@ App.prototype.run = function () {
 
 App.prototype.displayCheese = function () {
     var self = this;
+    var sayCheese = new SayCheese('#photo-container', {audio: false});
 
-    self.showModal();
+    self.showModal(function () {
+
+        sayCheese.on('start', function () {
+            this.takeSnapshot();
+        });
+
+        sayCheese.on('snapshot', function (snapshot) {
+            // a snapshot has been taken, do something with it :)
+            console.log(snapshot);
+        });
+
+        sayCheese.start();
+    });
 };
 
-App.prototype.showModal = function () {
+App.prototype.showModal = function (cb) {
     var self = this;
 
     self.$overlay.fadeIn(500);
-    self.$popup.fadeIn(1000);
+    self.$popup.fadeIn(1000, cb);
 };
 
 App.prototype.hideModal = function (isAnimate) {
@@ -56,26 +69,4 @@ App.prototype.hideModal = function (isAnimate) {
 
     self.$overlay.fadeOut(timing);
     self.$popup.fadeOut(timing);
-};
-
-App.prototype.askForG9N = function (cbSuccess, cbFailure) {
-
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            cbSuccess(position);
-        });
-
-    } else {
-        cbFailure();
-        // console.error("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
-    }
-
-};
-
-App.prototype.cb9GNSuccess = function (position) {
-
-};
-
-App.prototype.cb9GNFailure = function () {
-
 };

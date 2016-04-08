@@ -23,9 +23,6 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1;
-
-    displyay: none;
-    opacity: 0;
 }
 
 .popup {

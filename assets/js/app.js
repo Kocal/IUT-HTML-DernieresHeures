@@ -5,7 +5,6 @@
 function App() {
     var self = this;
 
-    // self._map = L.map("map-container");
 
     self._initMap();
 }
@@ -13,18 +12,11 @@ function App() {
 App.prototype._initMap = function () {
     var self = this;
 
-    self._map = new ol.Map({
-        target: 'map-container',
-        layers: [
-            new ol.layer.Tile({
-                source: new ol.source.MapQuest({layer: 'sat'})
-            })
-        ],
-        view: new ol.View({
-            center: new ol.proj.fromLonLat([0, 0]),
-            zoom: 2
-        }),
-    });
+    self._map = L.map('map-container').setView([51.505, -0.09], 13);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(self._map);
 }
 
 

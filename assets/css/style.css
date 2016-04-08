@@ -6,4 +6,10 @@ body {
     left: 0;
 
     margin: 0;
+
+    display: flex;
+}
+
+#map-container {
+    flex: 1;
 }
